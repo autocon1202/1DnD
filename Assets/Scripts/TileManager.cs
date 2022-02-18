@@ -7,46 +7,60 @@ public class TileManager : MonoBehaviour
     public GameObject nextTile;
     public GameObject prevTile;
     public int tileType;
-    private SpriteRenderer sprite;
+    SpriteRenderer sprite;
     
     // Start is called before the first frame update
     void Start()
     {
-        sprite = GetComponent<SpriteRenderer>();
+        sprite = gameObject.GetComponent<SpriteRenderer>();
         UpdateColor();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKey(KeyCode.LeftArrow))
-        {
-            if(prevTile != null)
-            {
-                tileType = prevTile.GetComponent<TileManager>().tileType;
-            }
-            else
-            {
-                tileType = 0;
-            }
-            UpdateColor();
-        }
-        if (Input.GetKey(KeyCode.RightArrow))
-        {
-            tileType = nextTile.GetComponent<TileManager>().tileType;
-            UpdateColor();
-        }
+        
     }
 
     void UpdateColor()
     {
         if (tileType == 0)
         {
-            sprite.color = new Color(255, 255, 255);
+            sprite.color = new Color32(255, 255, 255, 255);
         }
         if (tileType == 1)
         {
-            sprite.color = new Color(60, 120, 50);
+            sprite.color = new Color32(60, 120, 50, 255);
         }
+        if (tileType == 2)
+        {
+            sprite.color = new Color32(84, 50, 32, 255);
+        }
+    }
+
+    public void IncrementForward()
+    {
+        if (prevTile != null)
+        {
+            tileType = prevTile.GetComponent<TileManager>().tileType;
+        }
+        else
+        {
+            tileType = 0;
+        }
+        UpdateColor();
+    }
+
+    public void IncrementBackward()
+    {
+        if (nextTile != null)
+        {
+            tileType = nextTile.GetComponent<TileManager>().tileType;
+        }
+        else
+        {
+            tileType = Random.Range(1, 3);
+        }
+        UpdateColor();
     }
 }
