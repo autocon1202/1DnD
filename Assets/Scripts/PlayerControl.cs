@@ -5,7 +5,8 @@ using UnityEngine;
 public class PlayerControl : MonoBehaviour
 {
     public GameObject tiles;
-    public GameObject prevTile;
+    public GameObject memTile;
+    public GameObject nextTile;
     
     // Start is called before the first frame update
     void Start()
@@ -16,16 +17,27 @@ public class PlayerControl : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (prevTile.GetComponent<TileManager>().tileType != 0)
+        if (memTile.GetComponent<TileManager>().tileType != 0)
         {
             if (Input.GetKeyDown(KeyCode.LeftArrow))
             {
                 MoveBackward();
             }
         }
-        if (Input.GetKeyDown(KeyCode.RightArrow)) 
+        if ((nextTile.GetComponent<TileManager>().tileType != 3) && (nextTile.GetComponent<TileManager>().tileType != 4) && (nextTile.GetComponent<TileManager>().tileType != 5))
         {
-            MoveForward();
+            if (Input.GetKeyDown(KeyCode.RightArrow))
+            {
+                MoveForward();
+            }
+        }
+        if ((nextTile.GetComponent<TileManager>().tileType == 3) || (nextTile.GetComponent<TileManager>().tileType == 4) || (nextTile.GetComponent<TileManager>().tileType == 5))
+        {
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                nextTile.GetComponent<TileManager>().tileType = 1;
+                nextTile.GetComponent<TileManager>().UpdateTile();
+            }
         }
     }
 

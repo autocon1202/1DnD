@@ -13,7 +13,7 @@ public class TileManager : MonoBehaviour
     void Start()
     {
         sprite = gameObject.GetComponent<SpriteRenderer>();
-        UpdateColor();
+        UpdateTile();
     }
 
     // Update is called once per frame
@@ -22,17 +22,41 @@ public class TileManager : MonoBehaviour
         
     }
 
-    void UpdateColor()
+    public void UpdateTile()
     {
-        if (tileType == 0)
+        if (tileType == 0) // Null
         {
             sprite.color = new Color32(255, 255, 255, 255);
         }
-        if (tileType == 1)
+        if (tileType == 1) // Empty
         {
-            sprite.color = new Color32(60, 120, 50, 255);
+            sprite.color = new Color32(129, 129, 129, 255);
         }
-        if (tileType == 2)
+        if (tileType == 2) // Item
+        {
+            sprite.color = new Color32(0, 255, 255, 255);
+        }
+        if (tileType == 3) // Enemy
+        {
+            sprite.color = new Color32(255, 255, 51, 255);
+        }
+        if (tileType == 4) // Boss
+        {
+            sprite.color = new Color32(255, 128, 0, 255);
+        }
+        if (tileType == 5) // Super Boss
+        {
+            sprite.color = new Color32(255, 0, 0, 255);
+        }
+        if (tileType == 6) // NPC
+        {
+            sprite.color = new Color32(102, 0, 204, 255);
+        }
+        if (tileType == 7) // Rare Item
+        {
+            sprite.color = new Color32(0, 0, 255, 255);
+        }
+        if (tileType == 8) // Shop
         {
             sprite.color = new Color32(84, 50, 32, 255);
         }
@@ -48,7 +72,7 @@ public class TileManager : MonoBehaviour
         {
             tileType = 0;
         }
-        UpdateColor();
+        UpdateTile();
     }
 
     public void IncrementBackward()
@@ -59,8 +83,34 @@ public class TileManager : MonoBehaviour
         }
         else
         {
-            tileType = Random.Range(1, 3);
+            int num = Random.Range(1, 1001);
+            if (num <= 600)
+            {
+                tileType = 1;
+            }
+            else if (num <= 800)
+            {
+                tileType = 3;
+            }
+            else if (num <= 875)
+            {
+                tileType = 2;
+            }
+            else if (num <= 885)
+            {
+                tileType = 4;
+            }
+            else if (num <= 935)
+            {
+                tileType = 6;
+            }
+            else if (num <= 945)
+            {
+                tileType = 7;
+            } else {
+                tileType = 8;
+            }
         }
-        UpdateColor();
+        UpdateTile();
     }
 }
